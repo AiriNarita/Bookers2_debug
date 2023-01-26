@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(user_url(current_user)) unless @user == current_user
+  end
 end
